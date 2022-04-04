@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .pro{
+            
+            width: 90%;
+            text-align: center;
+            /* margin: auto; */
+        }
+        #input{
+
+            width: 40%;
+            margin: auto;
+            text-align: left;
+        }
+        #output{
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div class="pro">
+    <h1><u>EXPENSE TRACKER</u></h1>
+    <div id="input">
+       <p>Select Month</p>
+        <form>
+            <select name="month" id="months">
+            <option value="jan">January</option>
+            <option value="feb">Feburary</option>
+            <option value="mar">March</option>
+            <option value="apr">April</option>
+            <option value="may">May</option>
+            <option value="jun">June</option>
+            <option value="jul">July</option>
+            <option value="aug">Auguest</option>
+            <option value="sep">September</option>
+            <option value="oct">October</option>
+            <option value="nov">November</option>
+            <option value="dec">December</option>
+            </select>
+
+            <p>Income</p>
+            <input type="number" id="income" placeholder="Enter income in Rs.">
+
+            <p>Expense</p>
+            <input type="number" id="expense" placeholder="Enter expence in Rs.">
+            <br>
+            <br>
+            <input type="submit" value="submit">
+
+        </form>
+    </div> 
+    <div class="container">
+        <h3 id="month"></h3>
+        <p id="inc"></p>
+    </div>
+</div>
+    <script>
+        document.querySelector('form').addEventListener("submit",addCard);
+        var cardDetails=[
+            {
+                name:"",
+                i:"",
+                e:"",
+                s:""
+            }
+        ];
+        
+        function addCard(){
+            event.preventDefault();
+            var cardObj={
+                name:document.querySelector('#months').value,
+                i:document.querySelector('#income').value,
+                e:document.querySelector('#expense').value,
+                s:document.querySelector('#income').value-document.querySelector('#expense').value
+            };
+            cardDetails.push(cardObj);
+            displayCards(cardDetails)
+        }
+        function displayCards(cardDetails){
+            document.querySelector(".container").innerText="";
+            cardDetails.forEach(function (card){
+                var boxes=document.createElement('div');
+                boxes.setAttribute("id","output");
+                boxes.style.display='flex';
+                    var box=document.createElement('div');
+                    box.style.color='red';
+                    box.style.display='block';
+                    box.style.border='1px solid red';
+                    box.style.width='40px'
+                    var name=document.createElement('p');
+                    name.innerText=card.name;
+                    var i=document.createElement('p');
+                    i.innerText=card.i;
+                    var e=document.createElement('p');
+                    e.innerText=card.e;
+                    var s=document.createElement('p');
+                    s.innerText=card.s;
+                    box.append(name,i,e,s);
+                    boxes.append(box)
+                    document.querySelector(".container").append(boxes);
+                })
+        }
+    </script>
+</body>
+</html>
